@@ -7,7 +7,7 @@ const theme = createTheme({
     },
     background: {
       backgroundColor: '#001928',
-      backgroundBox: "white",
+      box: "#ffff",
       text: "#ffffff"
     }
   },

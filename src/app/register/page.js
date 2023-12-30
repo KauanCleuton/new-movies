@@ -1,15 +1,12 @@
 "use client"
 import React, { useState } from "react";
-import { Box, styled, useTheme, TextField, Typography, Stack, Button } from '@mui/material';
+import { Box, styled, useTheme, TextField, Typography, Button, Avatar } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import KeyIcon from '@mui/icons-material/Key';
 
-const StyledImg = styled("img")({
-    maxWidth: '100%',
-    width: '200px',
-    height: '200px',
-});
 
 const fontParams = {
-    fontSize: { lg: '3rem', md: '2.6rem', sm: '2.2rem', xs: '.9rem' },
+    fontSize: { lg: '3.5rem', md: '3.2rem', sm: '3rem', xs: '3rem' },
     lineHeight: { lg: '3.5rem', md: '2.7rem', sm: '2rem', xs: '2.4rem' },
 };
 const fontBodyParams = {
@@ -36,52 +33,158 @@ const RegisterPage = () => {
 
     return (
         <Box sx={{
-            width: "100vw",
             background: theme.palette.background.backgroundColor,
-            height: '100vh',
+            width: '100vw',
+            padding: '0 20px',
             display: 'flex',
+            placeContent: 'center',
+            placeItems: 'center',
             flexDirection: 'column',
-            alignItems: 'center',
-            padding: '0px 20px',
-            placeContent: 'center'
-        }}>
-            <StyledImg src={"/assets/logo.svg"} alt="Logo" />
+            height: '100vh'
 
+        }} onKeyUp={handleRegister}>
+            <Avatar alt="Logo Sistema" src="/image/logo.svg" sx={{
+                maxWidth: '100%',
+                width: '200px',
+                height: 'auto',
+                borderRadius: '0',
+                objectFit: 'cover'
+            }} />
             <Box sx={{
-                backgroundColor: "#fff",
-                width: '100%',
                 maxWidth: '400px',
-                padding: '20px',
-                borderRadius: '10px',
+                height: 'auto',
+                width: '100%',
+                background: "#fff",
+                borderRadius: ".25rem",
+                position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: "1.2rem",
+                minWidth: 0,
+                wordWrap: 'break-word',
+                backgroundClip: 'border-box',
+
+                padding: '30px 20px',
+                justifyContent: "center",
+                gap: 3
             }}>
-                <Typography sx={{ ...fontParams, textAlign: 'center' }}>
-                    Cadastrar
-                </Typography>
-                <Stack sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
+
+
+
+                <Typography sx={{
+                    ...fontParams,
+                    textAlign: "center"
                 }}>
-                    <TextField label="Nome:" onChange={(e) => handleChange('nome', e.target.value)} type="text" variant="outlined" fullWidth />
-                    <TextField label="Email:" onChange={(e) => handleChange('email', e.target.value)} type="email" variant="outlined" fullWidth />
-                    <TextField label="Senha:" onChange={(e) => handleChange('senha', e.target.value)} type="password" variant="outlined" fullWidth />
-                </Stack>
+                    Login
+                </Typography>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    gap: "20px"
+                }}>
+                    <TextField
+                        placeholder="Nome"
+                        id="outlined-start-adornment"
+                        label='Nome: '
+                        sx={{
+                            width: '100%',
+                            borderRadius: '8px',
+                            color: "#001928",
+                            '& input': {
+                                color: '#001928', // Cor do texto branco
+                            },
+                            '& fieldset': {
+                                borderColor: '#ECECEC',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                            },
+                            '&:focus-within fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                            },
+                            '&:focus-within label': {
+                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                            },
+                        }}
+                        color="success"
+
+                    />
+                    <TextField
+                        placeholder="Email"
+                        label='Email: '
+                        id="outlined-start-adornment"
+                        sx={{
+                            color: "#001928",
+                            width: '100%',
+                            borderRadius: '8px',
+                            '& input': {
+                                color: '#001928', // Cor do texto branco
+                            },
+                            '& fieldset': {
+                                borderColor: '#ECECEC',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                            },
+                            '&:focus-within fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                            },
+                            '&:focus-within label': {
+                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                            },
+                        }}
+                        color="success"
+                        type="email"
+
+                    />
+                    <TextField
+                        placeholder="Senha: "
+                        id="outlined-start-adornment"
+                        label='Senha: '
+                        sx={{
+                            color: "#001928",
+                            width: '100%',
+                            borderRadius: '8px',
+                            '& input': {
+                                color: '#001928', // Cor do texto branco
+                            },
+                            '& fieldset': {
+                                borderColor: '#ECECEC',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                            },
+                            '& label': {
+                                color: '#001928 !important', // Cor do rótulo vermelha
+                            },
+                            '&:focus-within fieldset': {
+                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                            },
+                            '&:focus-within label': {
+                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                            },
+                        }}
+                        color="success"
+                        type="password"
+
+                    />
+                </Box>
                 <Button sx={{
-                    padding: '15px',
-                    backgroundColor: theme.palette.background.backgroundColor,
+                    width: '100%',
+                    display: 'flex',
+                    alignSelf: "center",
+                    padding: '15px 20px',
+                    background: "#001928",
                     ...fontBodyParams,
-                    color: theme.palette.background.text,
+                    color: '#fff',
                     ":hover": {
-                        background: theme.palette.background.backgroundColor
+                        background: '#001921'
                     }
-                }} onClick={handleRegister}>
-                    Cadastrar
+                }} onClick={handleRegister} >
+                    Entrar
                 </Button>
             </Box>
-        </Box>
+        </Box >
     );
 };
 
