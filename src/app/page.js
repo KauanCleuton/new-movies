@@ -7,7 +7,7 @@ import RegisterPage from "./register/page"
 const Home = () => {
   return (
     <ThemeProvider theme={theme}>  
-        {/* <RegisterPage /> */}
+        <RegisterPage />
     </ThemeProvider>
   )
 }
