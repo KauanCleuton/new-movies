@@ -33,11 +33,10 @@ const RegisterPage = () => {
 
     return (
         <Box sx={{
-            background: theme.palette.background.backgroundColor,
+            background: '#001928',
             width: '100vw',
-            padding: '0 20px',
+            padding: '60px 20px',
             display: 'flex',
-            placeContent: 'center',
             placeItems: 'center',
             flexDirection: 'column',
             height: '100vh'
@@ -45,7 +44,7 @@ const RegisterPage = () => {
         }} onKeyUp={handleRegister}>
             <Avatar alt="Logo Sistema" src="/image/logo.svg" sx={{
                 maxWidth: '100%',
-                width: '200px',
+                width: '130px',
                 height: 'auto',
                 borderRadius: '0',
                 objectFit: 'cover'
