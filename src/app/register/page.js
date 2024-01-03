@@ -90,19 +90,20 @@ const RegisterPage = () => {
                             borderRadius: '8px',
                             color: "#001928",
                             '& input': {
-                                color: '#001928', // Cor do texto branco
+                                color: '#001928',
                             },
                             '& fieldset': {
                                 borderColor: '#ECECEC',
                             },
                             '&:hover fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                                borderColor: '#001928 !important', 
+                                
                             },
                             '&:focus-within fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                                borderColor: '#001928 !important',
                             },
                             '&:focus-within label': {
-                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                                color: '#001928 !important',
                             },
                         }}
                         color="success"
@@ -117,19 +118,20 @@ const RegisterPage = () => {
                             width: '100%',
                             borderRadius: '8px',
                             '& input': {
-                                color: '#001928', // Cor do texto branco
+                                color: '#001928',
                             },
                             '& fieldset': {
                                 borderColor: '#ECECEC',
                             },
                             '&:hover fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                                borderColor: '#001928 !important', 
+                                
                             },
                             '&:focus-within fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                                borderColor: '#001928 !important',
                             },
                             '&:focus-within label': {
-                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                                color: '#001928 !important',
                             },
                         }}
                         color="success"
@@ -145,22 +147,23 @@ const RegisterPage = () => {
                             width: '100%',
                             borderRadius: '8px',
                             '& input': {
-                                color: '#001928', // Cor do texto branco
+                                color: '#001928',
                             },
                             '& fieldset': {
                                 borderColor: '#ECECEC',
                             },
                             '&:hover fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha ao passar o mouse
+                                borderColor: '#001928 !important', 
+                                
                             },
                             '& label': {
-                                color: '#001928 !important', // Cor do rótulo vermelha
+                                color: '#001928 !important',
                             },
                             '&:focus-within fieldset': {
-                                borderColor: '#001928 !important', // Cor da borda vermelha quando em foco
+                                borderColor: '#001928 !important',
                             },
                             '&:focus-within label': {
-                                color: '#001928 !important', // Cor do rótulo vermelha quando em foco
+                                color: '#001928 !important',
                             },
                         }}
                         color="success"
