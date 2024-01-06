@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Paper, Box, Typography, useTheme, useMediaQuery } from '@mui/material'
+import { Paper, Box, Typography, useTheme, useMediaQuery, Menu, MenuItem  } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -18,24 +18,26 @@ const fontBodyParams = {
 };
 const Header = () => {
     const theme = useTheme()
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'))
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const [openSideBar, setOpenSideBar] = useState(false)
     const handleToggleButton = () => {
         setOpenSideBar(!openSideBar)
     }
-
+    const handleClose = () => {
+        setOpenSideBar(!openSideBar)
+    }
     return (
-        <Box>
             <AppBar component={Paper} style={{
                 width: '100%',
                 display: "flex",
                 alignItems: 'center',
+                borderRadius: '0',
                 backgroundColor: '#001928',
-                padding: '.1rem 1.5rem',
+                padding: '.1rem 0rem',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
-                
+                alignContent: 'center'
             }}>
 
 
@@ -45,7 +47,7 @@ const Header = () => {
                 }}>
                     <Link href='/home' style={{ textDecoration: 'none' }}>
                         <img src="/image/logo.svg" style={{
-                            width: '80px',
+                            height: '70px',
                             maxWidth: '100%',
                             flexShrink: '0',
                             objectFit: 'cover',
@@ -54,19 +56,19 @@ const Header = () => {
                         }} alt="" />
                     </Link>
                 </Toolbar>
-                <Typography sx={{...fontParams, display: isSmallScreen ? 'none' : 'inline-block'}}>
+                <Typography sx={{ ...fontParams, display: isSmallScreen ? 'none' : 'inline-block' }}>
                     Meus Filmes
                 </Typography>
-                <Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 1 }}>
+                <Box sx={{ flexGrow: 0, padding: '0 40px', }}>
                     <Tooltip title="Open settings">
-                        <IconButton sx={{ p: 0, margin: '0 auto' }}>
+                        <IconButton onClick={handleToggleButton} sx={{ p: 0 }}>
                             <Avatar alt="Remy Sharp" src="https://github.com/KauanCleuton.png" />
                         </IconButton>
                     </Tooltip>
-                    {/* <Menu
-                        sx={{ mt: '45px' }}
+                    <Menu
+                        sx={{ mt: '65px' }}
                         id="menu-appbar"
-                        anchorEl={anchorElUser}
+
                         anchorOrigin={{
                             vertical: 'top',
                             horizontal: 'right',
@@ -76,21 +78,21 @@ const Header = () => {
                             vertical: 'top',
                             horizontal: 'right',
                         }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
+                        open={openSideBar}
+                        onClose={handleClose}
                     >
-                        
-                    </Menu> */}
-                    <Typography sx={{
-                        ...fontBodyParams,
-                        margin: '0 auto'
-                    }}>
-                        Kauan Cleuton
-                    </Typography>
+
+                        <MenuItem onClick={handleClose}>
+                            <Link href={"/register"}>
+                                <Typography textAlign="center">Setting</Typography>
+                            </Link>
+                        </MenuItem>
+
+                    </Menu>
                 </Box>
 
             </AppBar>
-        </Box>
+
     )
 }
 export default Header
