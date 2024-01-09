@@ -8,14 +8,26 @@ import Header from '@/components/header';
 const inter = Poppins({ subsets: ['latin'], weight: '500' });
 
 export default function RootLayout({ children }) {
+
   const [hideHeader, setHideHeader] = useState(false);
   const pagesWithoutHeader = ['/login', '/register'];
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      setHideHeader(pagesWithoutHeader.includes(path));
-    }
+    const handleHeaderVisibility = () => {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname;
+        setHideHeader(pagesWithoutHeader.includes(path));
+      }
+    };
+
+    // Executar a função quando o componente montar e sempre que a rota mudar
+    handleHeaderVisibility();
+    window.addEventListener('popstate', handleHeaderVisibility);
+
+    // Remover o event listener quando o componente for desmontado
+    return () => {
+      window.removeEventListener('popstate', handleHeaderVisibility);
+    };
   }, []);
 
   return (
