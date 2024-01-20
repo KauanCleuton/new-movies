@@ -201,7 +201,11 @@ const Home = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <Box sx={{
+      width: '100%',
+      height: '100vh',
+      boxSizing: 'border-box'
+    }}>
       <CustomContainer>
         <Container maxWidth="lg" sx={{ py: 14, mt: 10, display: 'flex', flexDirection: 'column', gap: 5 }}>
           <Grid container justifyContent="space-between" alignItems="center" spacing={2} sx={{ padding: '5px 0' }}>
@@ -227,7 +231,7 @@ const Home = () => {
           <TableComponente data={rows} onClick={handleDeleteRows} />
         </Container>
       </CustomContainer>
-    </ThemeProvider>
+    </Box>
   );
 };
 
