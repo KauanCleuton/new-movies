@@ -5,8 +5,8 @@ import React, { useRef, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
-import ImageCard from '@/components/ImageCard'
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import ProfilePictureEditor from './components/PictureEditor'
+import Button from '@mui/material/Button'
 
 
 
@@ -21,30 +21,15 @@ const fontBodyH1 = {
 }
 
 const SettingsPage = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [previewImage, setPreviewImage] = useState(null);
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setSelectedFile(file);
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setPreviewImage(reader.result);
-        };
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    };
-    console.log(selectedFile)
+    
 
     return (
         <Box sx={{
             width: '100vw',
-            height: '100vh',
+            height: "100vh",
             px: 2,
             display: 'flex',
-            py: 15
+            py: 10
         }}>
             <CustomContainer >
                 <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -54,52 +39,52 @@ const SettingsPage = () => {
                             textAlign: 'center'
                         }}>Dados Cadastrais</Typography>
                     </Grid>
-                    <Grid container item xs={12} justifyContent="center" alignItems="center" position="relative">
-                        <ImageCard src={previewImage} />
-                        <label htmlFor="fileInput" style={{
-                            width: { lg: '50px', md: '40px', sm: '30px', xs: '20px' },
-                            height: { lg: '50px', md: '40px', sm: '30px', xs: '20px' },
-                            borderRadius: "100%",
-                            display: "flex",
-                            alignItems: 'center',
-                            justifyContent: "center",
-                            cursor: 'pointer',
-                            position: 'absolute',
-                            top: '90%',
-                            left: '60%', // Centraliza a label sobre a imagem
-                            transform: 'translateX(-50%)', // Ajusta a posição horizontalmente
-                        }}>
-                            <AddAPhotoIcon sx={{
-                                fill: "#001928"
-                            }} />
-                            <input
-                                type="file"
-                                id="fileInput"
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                            />
-                        </label>
+                    <Grid
+                        item
+                        xs={12}
+
+                        
+                    >
+                        <ProfilePictureEditor />
                     </Grid>
-
-
                     <Grid item xs={12}>
-                        <Grid container spacing={5} justifyContent="center" alignItems="center">
+                        <Grid container spacing={3} justifyContent="center" alignItems="center">
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField id="" label="asd" fullWidth />
+                                    <TextField color='info' label="Nome" fullWidth />
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField id="" label="asd" fullWidth />
+                                    <TextField color='info' label="Email" fullWidth />
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField id="" label="asd" fullWidth />
+                                    <TextField color='info' label="Senha" fullWidth />
                                 </Box>
                             </Grid>
                         </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box sx={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                            <Button variant="contained" sx={{
+                                py: "8px",
+                                textTransform: "none",
+                                px: 7,
+                                fontSize: { lg: '1.1rem', md: "1rem", sm: ".99rem", xs: ".899rem" },
+                                backgroundColor: "#001928",
+                                ":hover": {
+                                    backgroundColor: "#001928"
+                                }
+                            }}>
+                              Alterar
+                            </Button>
+                        </Box>
                     </Grid>
                 </Grid>
 
