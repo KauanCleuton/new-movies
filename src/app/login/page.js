@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from "react";
 import { Box, styled, useTheme, TextField, Typography, Button, Avatar } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import KeyIcon from '@mui/icons-material/Key';
+import { Link } from 'next/link'
+
 
 
 const fontParams = {
@@ -13,12 +13,14 @@ const fontBodyParams = {
     fontSize: { lg: '1.3rem', md: '1.2rem', sm: '1.1rem', xs: '.9rem' },
     lineHeight: { lg: '1rem', md: '1rem', sm: '.88rem', xs: '.855em' },
 };
+
 const LinkRegister = styled('a')({
     textDecoration: "none",
     color: '#001928',
     fontWeight: 'bold'
 })
-const RegisterPage = () => {
+
+const LoginPage = () => {
     const [values, setValues] = useState({
         nome: '',
         email: '',
@@ -37,20 +39,15 @@ const RegisterPage = () => {
 
     return (
         <Box sx={{
-            backgroundImage: `linear-gradient(35deg, #001928, transparent), url('/image/bg-register.jpeg')`,
+            backgroundImage: "linear-gradient(50deg, #001928, transparent),url('/image/bg-login.jpeg')",
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-
-            width: '100vw',
-            padding: '20px',
             display: 'flex',
-            placeContent: 'center',
-            placeItems: 'center',
+            py: 15,
             flexDirection: 'column',
             height: '100vh',
             objectFit: 'cover',
-
         }} onKeyUp={handleRegister}>
             <Avatar alt="Logo Sistema" src="/image/logo.svg" sx={{
                 maxWidth: '100%',
@@ -72,7 +69,7 @@ const RegisterPage = () => {
                 wordWrap: 'break-word',
                 backgroundClip: 'border-box',
 
-                padding: '20px 20px',
+                padding: '20px',
                 justifyContent: "center",
                 gap: 1
             }}>
@@ -84,7 +81,7 @@ const RegisterPage = () => {
                     textAlign: "center",
                     mb: 2
                 }}>
-                    Register
+                    Login
                 </Typography>
                 <Box sx={{
                     display: 'flex',
@@ -92,34 +89,6 @@ const RegisterPage = () => {
                     flexDirection: 'column',
                     gap: "20px"
                 }}>
-                    <TextField
-                        placeholder="Nome"
-                        id="outlined-start-adornment"
-                        label='Nome: '
-                        sx={{
-                            width: '100%',
-                            borderRadius: '8px',
-                            color: "#001928",
-                            '& input': {
-                                color: '#001928',
-                            },
-                            '& fieldset': {
-                                borderColor: '#ECECEC',
-                            },
-                            '&:hover fieldset': {
-                                borderColor: '#001928 !important',
-
-                            },
-                            '&:focus-within fieldset': {
-                                borderColor: '#001928 !important',
-                            },
-                            '&:focus-within label': {
-                                color: '#001928 !important',
-                            },
-                        }}
-                        color="success"
-
-                    />
                     <TextField
                         placeholder="Email"
                         label='Email: '
@@ -182,8 +151,8 @@ const RegisterPage = () => {
 
                     />
                 </Box>
-                <Typography sx={{ display: 'flex', gap: 1, fontSize: { sm: '1.1rem', xs: '.6rem' } }} >
-                    Já tem conta? <LinkRegister href="/login" >Entrar</LinkRegister>
+                <Typography sx={{ display: 'flex', gap: 1, fontSize: {sm: '1.1rem', xs: '.6rem'}}} >
+                    Ainda não tem conta? <LinkRegister href="/register" >Criar Conta</LinkRegister>
                 </Typography>
                 <Button sx={{
                     width: '100%',
@@ -197,12 +166,13 @@ const RegisterPage = () => {
                         background: '#001921'
                     }
                 }} onClick={handleRegister} >
-                    Cadastrar
+                    Entrar
                 </Button>
 
             </Box>
+            
         </Box >
     );
 };
 
-export default RegisterPage;
+export default LoginPage;

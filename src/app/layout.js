@@ -4,20 +4,15 @@ import React, { useEffect, useState } from 'react';
 import './globals.css';
 import { Poppins } from 'next/font/google';
 import Header from '@/components/header';
+import { usePathname } from 'next/navigation';
 
 const inter = Poppins({ subsets: ['latin'], weight: '500' });
 
 export default function RootLayout({ children }) {
-  const [hideHeader, setHideHeader] = useState(false);
-  const pagesWithoutHeader = ['/login', '/register'];
+  const pathname = usePathname()
+  console.log(pathname)
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      setHideHeader(pagesWithoutHeader.includes(path));
-    }
-  }, []);
-
+ 
   return (
     <html lang="pt-br">
       <head>
@@ -27,7 +22,7 @@ export default function RootLayout({ children }) {
         {/* <link rel="icon" type="image/x-icon" href="/image/favicon.ico"></link> */}
       </head>
       <body className={inter.className}>
-        {!hideHeader && <Header />}
+      {pathname !== "/login" && pathname !== "/register" && <Header />}
         {children}
       </body>
     </html>
