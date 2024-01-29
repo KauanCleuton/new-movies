@@ -47,7 +47,7 @@ const InsertPage = () => {
                         <Grid item xs={12}>
                             <Box sx={{
                                 width: "100%",
-                                background: "#001918",
+                                background: "#001928",
                                 color: "#fff",
                                 borderRadius: "7px 7px 0 0",
                                 px: 2,

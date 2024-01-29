@@ -204,10 +204,11 @@ const Home = () => {
     <Box sx={{
       width: '100%',
       height: '100vh',
-      boxSizing: 'border-box'
+      mb: { xs: 15, sm: 0 },
+      py: { xs: 10, sm: 15 }
     }}>
       <CustomContainer>
-        <Container maxWidth="lg" sx={{ py: 14, mt: 10, display: 'flex', flexDirection: 'column', gap: 5 }}>
+        <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <Grid container justifyContent="space-between" alignItems="center" spacing={2} sx={{ padding: '5px 0' }}>
             <Grid item xs={12} sm={8}>
               <Box sx={{ display: 'flex', gap: 2, width: '100%', flexDirection: { xs: 'column', sm: 'row' }, }}>

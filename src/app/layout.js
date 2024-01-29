@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-
 import './globals.css';
 import { Poppins } from 'next/font/google';
 import Header from '@/components/header';
 import { usePathname } from 'next/navigation';
+import Footer from '@/components/Footer';
 
 const inter = Poppins({ subsets: ['latin'], weight: '500' });
 
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname()
   console.log(pathname)
 
- 
+
   return (
     <html lang="pt-br">
       <head>
@@ -22,8 +22,9 @@ export default function RootLayout({ children }) {
         {/* <link rel="icon" type="image/x-icon" href="/image/favicon.ico"></link> */}
       </head>
       <body className={inter.className}>
-      {pathname !== "/login" && pathname !== "/register" && <Header />}
+        {pathname !== "/login" && pathname !== "/register" && <Header />}
         {children}
+        {pathname !== "/login" && pathname !== "/register" && <Footer />}
       </body>
     </html>
   );
