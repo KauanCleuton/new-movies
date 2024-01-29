@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/themes";
-import { Grid, Box, TextField, Autocomplete, Button, Container } from '@mui/material'
+import { Grid, Box, TextField, Autocomplete, Button, Container, Link } from '@mui/material'
 import TableComponente from "@/components/Table";
 import CustomContainer from "@/components/CustomContainer";
 import { ButtonComponent } from "@/components/Button";
@@ -224,8 +224,19 @@ const Home = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <Box sx={{ display: 'flex', gap: 2, width: '100%', justifyContent: 'space-evenly' }}>
-                <ButtonComponent children={"Buscar"} padding={"15px 40px"} />
-                <ButtonComponent children={<AddCircleOutlineOutlined sx={{ fill: "#fff" }} />} padding={"15px 10px"} />
+                <ButtonComponent children={"Buscar"} />
+                <Button component={Link} href="/add-movie" variant="contained" sx={{
+                  background: '#001928',
+                  padding: "20px",
+                  color: '#fff',
+                  ":hover": {
+                    background: '#001919'
+                  }
+                }}>
+                  <AddCircleOutlineOutlined sx={{ fill: "#fff" }} />
+                </Button>
+
+
               </Box>
             </Grid>
           </Grid>
