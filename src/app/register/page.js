@@ -182,7 +182,7 @@ const RegisterPage = () => {
 
                     />
                 </Box>
-                <Typography sx={{ display: 'flex', gap: 1, fontSize: {sm: '1.1rem', xs: '.6rem'} }} >
+                <Typography sx={{ display: 'flex', gap: 1, fontSize: { sm: '1.1rem', xs: '.6rem' } }} >
                     Já tem conta? <LinkRegister href="/login" >Entrar</LinkRegister>
                 </Typography>
                 <Button sx={{
