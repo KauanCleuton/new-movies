@@ -199,7 +199,8 @@ const Home = () => {
     const rowsDelete = rows.filter(item => item.position !== position)
     setRows(rowsDelete)
   }
-
+  const typesFilter = ['Titulo', 'Gênero', 'Ano', 'Resolução', 'Áudio']
+  
   return (
     <Box sx={{
       width: '100%',
@@ -212,11 +213,12 @@ const Home = () => {
           <Grid container justifyContent="space-between" alignItems="center" spacing={2} sx={{ padding: '5px 0' }}>
             <Grid item xs={12} sm={8}>
               <Box sx={{ display: 'flex', gap: 2, width: '100%', flexDirection: { xs: 'column', sm: 'row' }, }}>
-                <TextField label="Input 1" sx={{ flex: 1 }} />
+                <TextField label="Input 1" sx={{ flex: 1 }} value={valueFilter} onChange={(e) => setValueFilter(e.target.value)} />
                 <Autocomplete
                   disablePortal
                   id="combo-box-demo"
-                  options={['Kauan', 'Rian']}
+                  options={typesFilter}
+                  
                   sx={{ flex: 1 }}
                   renderInput={(params) => <TextField {...params} label="Movie" />}
                 />
