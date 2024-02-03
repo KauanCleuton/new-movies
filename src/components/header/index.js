@@ -85,7 +85,7 @@ const Header = () => {
                 >
 
                     <MenuItem onClick={handleClose}>
-                        <Link href={"/register"}>
+                        <Link href={"/settings"}>
                             <Typography textAlign="center">Setting</Typography>
                         </Link>
                     </MenuItem>

@@ -69,18 +69,18 @@ const TableComponente = ({ data, onClick }) => {
                 <TableBody>
                     {data.map((row) => (
                         <StyledTableRow
-                            key={row.position}
+                            key={row.posicao}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <StyledTableCell component="th" align='center' scope="row">
-                                {row.position}
+                                {row.posicao}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.title}</StyledTableCell>
-                            <StyledTableCell align="center">{row.gender}</StyledTableCell>
-                            <StyledTableCell align="center">{row.year}</StyledTableCell>
-                            <StyledTableCell align="center">{row.resolution}</StyledTableCell>
+                            <StyledTableCell align="center">{row.titulo}</StyledTableCell>
+                            <StyledTableCell align="center">{row.genero}</StyledTableCell>
+                            <StyledTableCell align="center">{row.ano}</StyledTableCell>
+                            <StyledTableCell align="center">{row.resolucao}</StyledTableCell>
                             <StyledTableCell align="center">{row.audio}</StyledTableCell>
-                            <StyledTableCell align="center">{row.watched}</StyledTableCell>
+                            <StyledTableCell align="center">{row.assistido}</StyledTableCell>
                             <StyledTableCell align="center" >
                                 <Box style={{ display: 'flex', gap: 2 }}>
                                     <button
@@ -91,7 +91,7 @@ const TableComponente = ({ data, onClick }) => {
                                             display: 'flex',
                                             alignItems: 'center',
                                         }}
-                                        onClick={() => onClick(row.position)}
+                                        onClick={() => onClick(row.posicao)}
                                     >
                                         <HighlightOffOutlined sx={{ fill: '#fff' }} />
                                     </button>
