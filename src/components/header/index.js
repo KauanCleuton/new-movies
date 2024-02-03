@@ -64,7 +64,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 0, padding: '0 40px', }}>
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleToggleButton} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="https://github.com/KauanCleuton.png" />
+                        <Avatar alt="Remy Sharp" />
                     </IconButton>
                 </Tooltip>
                 <Menu
