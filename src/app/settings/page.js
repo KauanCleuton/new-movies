@@ -21,7 +21,7 @@ const fontBodyH1 = {
 }
 
 const SettingsPage = () => {
-    
+
 
     return (
         <Box sx={{
@@ -43,7 +43,7 @@ const SettingsPage = () => {
                         item
                         xs={12}
 
-                        
+
                     >
                         <ProfilePictureEditor />
                     </Grid>
@@ -70,19 +70,20 @@ const SettingsPage = () => {
                         <Box sx={{
                             width: '100%',
                             display: 'flex',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            py: 5
                         }}>
                             <Button variant="contained" sx={{
                                 py: "8px",
                                 textTransform: "none",
-                                px: 7,
+                                width: "20%",
                                 fontSize: { lg: '1.1rem', md: "1rem", sm: ".99rem", xs: ".899rem" },
                                 backgroundColor: "#001928",
                                 ":hover": {
                                     backgroundColor: "#001928"
                                 }
                             }}>
-                              Alterar
+                                Alterar
                             </Button>
                         </Box>
                     </Grid>

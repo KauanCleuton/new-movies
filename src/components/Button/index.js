@@ -1,10 +1,12 @@
-import {Button} from '@mui/material'
+import {Button, Link} from '@mui/material'
 
-export const ButtonComponent = ({children, padding}) => {
+export const ButtonComponent = ({children, handleBuscar}) => {
     return (
-        <Button sx={{
+        <Button  
+        onClick={handleBuscar}
+        sx={{
             background: '#001928',
-            padding: `${padding}`,
+            padding: "15px 40px",
             color: '#fff',
             ":hover": {
                 background: '#001919'
