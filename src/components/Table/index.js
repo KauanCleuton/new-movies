@@ -95,7 +95,7 @@ const TableComponente = ({ data, onClick }) => {
                                     >
                                         <HighlightOffOutlined sx={{ fill: '#fff' }} />
                                     </button>
-                                    <Link href="/edit-movie">
+                                    <Link href="/edit">
                                         <button
                                             style={{
                                                 background: 'transparent',

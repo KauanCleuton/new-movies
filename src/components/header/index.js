@@ -46,7 +46,7 @@ const Header = () => {
             <Toolbar sx={{
                 display: 'flex',
             }}>
-                <Link href='/home' style={{
+                <Link href='/' style={{
                     textDecoration: 'none',
                     height: '70px',
                     maxWidth: '100%',
