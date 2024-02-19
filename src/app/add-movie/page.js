@@ -14,6 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
+import withAuth from "@/utils/withAuth"
 
 
 
@@ -167,4 +168,4 @@ const InsertPage = () => {
     )
 }
 
-export default InsertPage
+export default withAuth(InsertPage)

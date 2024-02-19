@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import ProfilePictureEditor from './components/PictureEditor'
 import Button from '@mui/material/Button'
+import withAuth from '@/utils/withAuth'
 
 
 
@@ -29,7 +30,8 @@ const SettingsPage = () => {
             height: "100vh",
             px: 2,
             display: 'flex',
-            py: 10
+            py: { lg: 15, md: 13, sm: 12, xs: 15 },
+            marginBottom: 15
         }}>
             <CustomContainer >
                 <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -94,4 +96,4 @@ const SettingsPage = () => {
         </Box>
     )
 }
-export default SettingsPage
+export default withAuth(SettingsPage)
