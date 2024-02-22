@@ -60,7 +60,6 @@ const ProfilePictureEditor = () => {
             setOpen(true);
         }
     };
-
     const handleScaleChange = (e) => {
         setScale(e.target.value);
     };
@@ -74,7 +73,6 @@ const ProfilePictureEditor = () => {
             setOpen(false);
         }
     };
-
     const handleClose = () => {
         setOpen(false);
     };
@@ -86,7 +84,6 @@ const ProfilePictureEditor = () => {
     const handleCloseImageDialog = () => {
         setOpenImageDialog(false);
     };
-
     return (
         <StyledBox>
             <Badge>

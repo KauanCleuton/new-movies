@@ -14,6 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
+import withAuth from "@/utils/withAuth"
 
 
 
@@ -21,7 +22,6 @@ const fontBodyParams = {
     fontSize: { lg: '1rem', md: '1.2rem', sm: '1.1rem', xs: '.8rem' },
     lineHeight: { lg: '1rem', md: '1rem', sm: '.88rem', xs: '.9em' },
 };
-
 const InsertPage = () => {
     return (
         <Box sx={{
@@ -167,4 +167,4 @@ const InsertPage = () => {
     )
 }
 
-export default InsertPage
+export default withAuth(InsertPage)

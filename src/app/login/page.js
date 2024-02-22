@@ -1,7 +1,10 @@
 "use client"
 import React, { useState } from "react";
-import { Box, styled, useTheme, TextField, Typography, Button, Avatar } from '@mui/material';
+import { Box, styled, useTheme, TextField, Typography, Button, Avatar, Snackbar, IconButton } from '@mui/material';
 import { Link } from 'next/link'
+import { useRouter } from "next/navigation";
+import Auth from "@/service/auth.service";
+import { Close } from '@mui/icons-material'
 
 
 
@@ -21,21 +24,58 @@ const LinkRegister = styled('a')({
 })
 
 const LoginPage = () => {
-    const [values, setValues] = useState({
-        nome: '',
+    const auth = new Auth();
+    const router = useRouter();
+    const [data, setData] = useState({
         email: '',
-        senha: ''
+        password: ''
     });
-    const theme = useTheme();
 
-    const handleChange = (fieldName, value) => {
-        if (!value) return false;
-        setValues((prevValues) => ({ ...prevValues, [fieldName]: value }));
+    const handleOnChangeValue = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        setData({ ...data, [name]: value });
     };
+    const [text, setText] = useState({
+        message: '',
+        variant: ''
+    })
+    const [openSnackBar, setOpenSnackBar] = useState(false)
+    const handleCloseSnackBar = () => setOpenSnackBar(!openSnackBar)
+    const handleLogin = async () => {
+        try {
+            const response = await auth.login(data);
 
-    const handleRegister = () => {
-        console.table(values);
+            console.log(response.data);
+            const { accessToken, refreshToken } = response.data.response;
+            console.log(accessToken, refreshToken, 7777777)
+            sessionStorage.setItem('accessToken', accessToken);
+            sessionStorage.setItem('refreshToken', refreshToken);
+            setOpenSnackBar(!openSnackBar)
+            setText({ ...text, 'message': response.data.response.message, 'variant': "success" })
+            router.push("/");
+        } catch (error) {
+            console.log('Error logging in', error);
+            setOpenSnackBar(!openSnackBar)
+            setText({ ...text, 'message': 'Credenciais Inválidas!', 'variant': "error" })
+            router.push("/login");
+        }
     };
+    const SnackBarAuth = ({ text, open, close }) => {
+        return <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            open={open}
+            onClose={close}
+            message={text.message}
+            variant={text.variant}
+            action={
+                <IconButton size="small" aria-label="close" color="inherit" onClick={close}>
+                    <Close fontSize="small" />
+                </IconButton>
+            }
+        />
+    }
+
 
     return (
         <Box sx={{
@@ -45,10 +85,15 @@ const LoginPage = () => {
             backgroundPosition: 'center',
             display: 'flex',
             py: 15,
+            alignItems: "center",
+            justifyContent: "center",
             flexDirection: 'column',
             height: '100vh',
             objectFit: 'cover',
-        }} onKeyUp={handleRegister}>
+            px: 3
+        }}
+            onKeyUp={handleOnChangeValue}
+        >
             <Avatar alt="Logo Sistema" src="/image/logo.svg" sx={{
                 maxWidth: '100%',
                 width: '130px',
@@ -92,6 +137,7 @@ const LoginPage = () => {
                     <TextField
                         placeholder="Email"
                         label='Email: '
+                        name="email"
                         id="outlined-start-adornment"
                         sx={{
                             color: "#001928",
@@ -116,12 +162,14 @@ const LoginPage = () => {
                         }}
                         color="success"
                         type="email"
-
+                        onChange={handleOnChangeValue}
+                        value={data.email}
                     />
                     <TextField
                         placeholder="Senha: "
                         id="outlined-start-adornment"
                         label='Senha: '
+                        name="password"
                         sx={{
                             color: "#001928",
                             width: '100%',
@@ -148,10 +196,12 @@ const LoginPage = () => {
                         }}
                         color="success"
                         type="password"
+                        onChange={handleOnChangeValue}
+                        value={data.password}
 
                     />
                 </Box>
-                <Typography sx={{ display: 'flex', gap: 1, fontSize: {sm: '1.1rem', xs: '.6rem'}}} >
+                <Typography sx={{ display: 'flex', gap: 1, fontSize: { sm: '1.1rem', xs: '.6rem' } }} >
                     Ainda não tem conta? <LinkRegister href="/register" >Criar Conta</LinkRegister>
                 </Typography>
                 <Button sx={{
@@ -165,12 +215,12 @@ const LoginPage = () => {
                     ":hover": {
                         background: '#001921'
                     }
-                }} onClick={handleRegister} >
+                }} onClick={handleLogin}>
                     Entrar
                 </Button>
 
             </Box>
-            
+            <SnackBarAuth close={handleCloseSnackBar} text={text} open={openSnackBar} />
         </Box >
     );
 };

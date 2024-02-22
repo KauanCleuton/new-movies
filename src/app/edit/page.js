@@ -14,6 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
+import withAuth from "@/utils/withAuth"
 
 
 
@@ -22,7 +23,7 @@ const fontBodyParams = {
     lineHeight: { lg: '1rem', md: '1rem', sm: '.88rem', xs: '.9em' },
 };
 
-const InsertPage = () => {
+const EditMovie = () => {
     return (
         <Box sx={{
             width: "100vw",
@@ -166,5 +167,4 @@ const InsertPage = () => {
         </Box>
     )
 }
-
-export default InsertPage
+export default withAuth(EditMovie)
