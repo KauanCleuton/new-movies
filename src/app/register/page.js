@@ -41,7 +41,6 @@ const RegisterPage = () => {
         const { name, value } = event.target
         setData({ ...data, [name]: value })
     }
-
     const handleRegisterUser = async () => {
         const auth = new Auth()
         try {

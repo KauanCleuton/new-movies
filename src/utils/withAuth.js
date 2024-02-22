@@ -19,7 +19,7 @@ const withAuth = (WrappedComponent) => {
                 const response = await auth.refreshTokenService(refreshToken);
                 const { accessToken } = response.data;
                 console.log('Novo accesstoken', accessToken)
-                localStorage.setItem('accessToken', accessToken);
+                sessionStorage.setItem('accessToken', accessToken);
             } catch (error) {
                 console.error('Erro ao renovar o token de acesso:', error);
                 router.push('/login');
@@ -27,8 +27,8 @@ const withAuth = (WrappedComponent) => {
         };
 
         useEffect(() => {
-            const accessToken = localStorage.getItem('accessToken');
-            const refreshToken = localStorage.getItem('refreshToken');
+            const accessToken = sessionStorage.getItem('accessToken');
+            const refreshToken = sessionStorage.getItem('refreshToken');
 
             if (!accessToken || !refreshToken) {
                 router.push('/login');

@@ -49,8 +49,8 @@ const LoginPage = () => {
             console.log(response.data);
             const { accessToken, refreshToken } = response.data.response;
             console.log(accessToken, refreshToken, 7777777)
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken);
+            sessionStorage.setItem('accessToken', accessToken);
+            sessionStorage.setItem('refreshToken', refreshToken);
             setOpenSnackBar(!openSnackBar)
             setText({ ...text, 'message': response.data.response.message, 'variant': "success" })
             router.push("/");
@@ -61,7 +61,6 @@ const LoginPage = () => {
             router.push("/login");
         }
     };
-
     const SnackBarAuth = ({ text, open, close }) => {
         return <Snackbar
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

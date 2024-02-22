@@ -10,20 +10,12 @@ import Button from '@mui/material/Button'
 import withAuth from '@/utils/withAuth'
 
 
-
-
-
-
-
-
 const fontBodyH1 = {
     fontSize: { lg: '3rem', md: '2.3rem', sm: "2rem", xs: '1.8rem' },
     lineHeight: { lg: 1.2, md: 1.1, sm: .99, xs: '1.7rem' }
 }
 
 const SettingsPage = () => {
-
-
     return (
         <Box sx={{
             width: '100vw',

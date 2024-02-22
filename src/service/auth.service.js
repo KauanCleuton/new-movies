@@ -3,8 +3,8 @@ import customAxios from './middleware';
 class Auth {
     register(payload) {
         return customAxios.post("/register", {
-            name: payload.name,
             email: payload.email,
+            name: payload.name,
             password: payload.password
         });
     }

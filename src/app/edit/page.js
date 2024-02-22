@@ -167,5 +167,4 @@ const EditMovie = () => {
         </Box>
     )
 }
-
 export default withAuth(EditMovie)

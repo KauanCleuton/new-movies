@@ -22,7 +22,6 @@ const fontBodyParams = {
     fontSize: { lg: '1rem', md: '1.2rem', sm: '1.1rem', xs: '.8rem' },
     lineHeight: { lg: '1rem', md: '1rem', sm: '.88rem', xs: '.9em' },
 };
-
 const InsertPage = () => {
     return (
         <Box sx={{
