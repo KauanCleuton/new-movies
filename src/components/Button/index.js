@@ -1,6 +1,6 @@
 import {Button, Link} from '@mui/material'
 
-export const ButtonComponent = ({children, handleBuscar}) => {
+export const ButtonComponent = ({text, handleBuscar}) => {
     return (
         <Button  
         onClick={handleBuscar}
@@ -12,7 +12,7 @@ export const ButtonComponent = ({children, handleBuscar}) => {
                 background: '#001919'
             }
         }}>
-            {children}
+            {text}
         </Button>
     )
 }

@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-
+import Image from 'next/image'
 const ImageCard = ({ src }) => {
   return (
     <Box sx={{
@@ -11,7 +11,7 @@ const ImageCard = ({ src }) => {
       margin: '0 auto'
       
     }}>
-      <img
+      <Image
         src={!src ? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png" : src}
         alt="profile-image"
         style={{

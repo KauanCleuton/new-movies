@@ -1,7 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "@/themes";
 import { Grid, Box, TextField, Autocomplete, Button, Container, Link } from '@mui/material'
 import TableComponente from "@/components/Table";
 import CustomContainer from "@/components/CustomContainer";
@@ -106,7 +104,7 @@ const Home = () => {
                 gap: 2,
                 justifyContent: "space-around"
               }}>
-                <ButtonComponent children={"Buscar"} handleBuscar={handleFilterRows} />
+                <ButtonComponent text={"Buscar"} handleBuscar={handleFilterRows} />
 
                 <Button component={Link} href="/add-movie" variant="contained" sx={{
                   background: '#001928',
@@ -121,7 +119,7 @@ const Home = () => {
               </Box>
             </Grid>
           </Grid>
-          <TableComponente data={rows} onClick={handleDeleteRows} />
+          <TableComponente onClick={handleDeleteRows} />
         </Container>
       </CustomContainer>
     </Box>
