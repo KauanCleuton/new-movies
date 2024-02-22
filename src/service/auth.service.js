@@ -1,11 +1,11 @@
 import customAxios from './middleware';
 
 class Auth {
-    register(name, email, password) {
+    register(payload) {
         return customAxios.post("/register", {
-            name: name,
-            email: email,
-            password: password
+            name: payload.name,
+            email: payload.email,
+            password: payload.password
         });
     }
 

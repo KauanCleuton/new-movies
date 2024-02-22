@@ -1,8 +1,11 @@
 "use client"
 import React, { useState } from "react";
-import { Box, styled, useTheme, TextField, Typography, Button, Avatar } from '@mui/material';
+import { Box, styled, useTheme, TextField, Typography, Button, Avatar, Snackbar, IconButton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
+import { Close } from "@mui/icons-material";
+import Auth from "@/service/auth.service";
+import { useRouter } from "next/navigation";
 
 
 const fontParams = {
@@ -18,22 +21,57 @@ const LinkRegister = styled('a')({
     color: '#001928',
     fontWeight: 'bold'
 })
+
+
+
 const RegisterPage = () => {
-    const [values, setValues] = useState({
-        nome: '',
-        email: '',
-        senha: ''
-    });
-    const theme = useTheme();
+    const router = useRouter()
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+    const [text, setText] = useState({
+        message: '',
+        variant: ''
+    })
+    const [open, setOpen] = useState(false)
+    const handleClose = () => setOpen(!open)
+    const handleChangeValue = (event) => {
+        const { name, value } = event.target
+        setData({ ...data, [name]: value })
+    }
 
-    const handleChange = (fieldName, value) => {
-        if (!value) return false;
-        setValues((prevValues) => ({ ...prevValues, [fieldName]: value }));
-    };
+    const handleRegisterUser = async () => {
+        const auth = new Auth()
+        try {
+            const response = await auth.register(data)
+            console.log(response.data)
+            setOpen(!open)
+            setText({ ...text, 'message': response.data.message, 'variant': "success" })
+            router.push("/login");
+        } catch (error) {
+            console.log('Error logging in', error);
+            setOpen(!open)
+            setText({ ...text, 'message': 'Usuário não registrado!', 'variant': "error" })
+            setData({ ...data, email: "", name: "", password: "" })
+        }
+    }
 
-    const handleRegister = () => {
-        console.table(values);
-    };
+    const SnackBarAuth = ({ text, open, close }) => {
+        return <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            open={open}
+            onClose={close}
+            message={text.message}
+            variant={text.variant}
+            action={
+                <IconButton size="small" aria-label="close" color="inherit" onClick={close}>
+                    <Close fontSize="small" />
+                </IconButton>
+            }
+        />
+    }
 
     return (
         <Box sx={{
@@ -51,7 +89,7 @@ const RegisterPage = () => {
             height: '100vh',
             objectFit: 'cover',
 
-        }} onKeyUp={handleRegister}>
+        }} >
             <Avatar alt="Logo Sistema" src="/image/logo.svg" sx={{
                 maxWidth: '100%',
                 width: '130px',
@@ -96,6 +134,9 @@ const RegisterPage = () => {
                         placeholder="Nome"
                         id="outlined-start-adornment"
                         label='Nome: '
+                        name="name"
+                        value={data.name}
+                        onChange={handleChangeValue}
                         sx={{
                             width: '100%',
                             borderRadius: '8px',
@@ -124,6 +165,9 @@ const RegisterPage = () => {
                         placeholder="Email"
                         label='Email: '
                         id="outlined-start-adornment"
+                        name="email"
+                        value={data.email}
+                        onChange={handleChangeValue}
                         sx={{
                             color: "#001928",
                             width: '100%',
@@ -153,6 +197,9 @@ const RegisterPage = () => {
                         placeholder="Senha: "
                         id="outlined-start-adornment"
                         label='Senha: '
+                        name="password"
+                        value={data.password}
+                        onChange={handleChangeValue}
                         sx={{
                             color: "#001928",
                             width: '100%',
@@ -196,11 +243,12 @@ const RegisterPage = () => {
                     ":hover": {
                         background: '#001921'
                     }
-                }} onClick={handleRegister} >
+                }} onClick={handleRegisterUser} >
                     Cadastrar
                 </Button>
 
             </Box>
+            <SnackBarAuth close={handleClose} open={open} text={text} />
         </Box >
     );
 };
