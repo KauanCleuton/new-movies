@@ -22,7 +22,8 @@ const fontBodyParams = {
     fontSize: { lg: '1rem', md: '1.2rem', sm: '1.1rem', xs: '.8rem' },
     lineHeight: { lg: '1rem', md: '1rem', sm: '.88rem', xs: '.9em' },
 };
-const InsertPage = () => {
+
+const EditMovie = () => {
     return (
         <Box sx={{
             width: "100vw",
@@ -40,10 +41,10 @@ const InsertPage = () => {
                     margin: "0 auto",
                     borderRadius: "7px",
                     display: "flex",
-                    
-                    
+
+
                 }}>
-                    <Grid container spacing={{xs: 2, sm: 2}}>
+                    <Grid container spacing={{ xs: 2, sm: 2 }}>
                         <Grid item xs={12}>
                             <Box sx={{
                                 width: "100%",
@@ -56,14 +57,14 @@ const InsertPage = () => {
                                 <Typography sx={{
                                     fontSize: { lg: "1.2rem", md: "1.1rem", sm: "1rem", xs: ".89rem" }
                                 }}>
-                                    Adicionar um novo filme
+                                    Alterar um filme
                                 </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl>
 
-                                <Grid container px={2} spacing={{xs: 1, sm: 3}} >
+                                <Grid container px={2} spacing={{ xs: 1, sm: 3 }} >
                                     <Grid item xs={12}>
                                         <Box sx={{ width: "100%" }} >
                                             <TextField id="posicao" label="Posição" fullWidth type="number" />
@@ -133,7 +134,7 @@ const InsertPage = () => {
                                     },
                                     ...fontBodyParams
                                 }}>
-                                    Adicionar Filme
+                                    Alterar
                                 </Button>
                                 <Button variant="contained" sx={{
                                     textTransform: "none",
@@ -166,5 +167,4 @@ const InsertPage = () => {
         </Box>
     )
 }
-
-export default withAuth(InsertPage)
+export default withAuth(EditMovie)

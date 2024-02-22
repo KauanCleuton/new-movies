@@ -7,6 +7,7 @@ import TableComponente from "@/components/Table";
 import CustomContainer from "@/components/CustomContainer";
 import { ButtonComponent } from "@/components/Button";
 import { AddCircleOutlineOutlined } from "@mui/icons-material";
+import withAuth from "@/utils/withAuth";
 
 const Home = () => {
 
@@ -127,4 +128,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);

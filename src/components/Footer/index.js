@@ -6,7 +6,7 @@ import { Instagram, GitHub, LinkedIn } from '@mui/icons-material'
 import Link from "next/link"
 const fontBodyParams = {
     fontSize: { lg: '1.3rem', md: '1.2rem', sm: '1.1rem', xs: '.8rem' },
-    lineHeight: { lg: '1.5rem', md: '1rem', sm: '.88rem', xs: '.9em' },
+    lineHeight: { lg: '1.5rem', md: '1.4rem', sm: '1.3rem', xs: '1.5rem' },
 };
 
 const Footer = () => {
