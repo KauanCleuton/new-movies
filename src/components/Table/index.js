@@ -39,11 +39,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const TableComponente = ({ data, onClick }) => {
-
-
-
-
-
     return (
         <TableContainer component={Paper} sx={{
             maxHeight: 520,
