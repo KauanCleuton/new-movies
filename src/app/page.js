@@ -119,7 +119,7 @@ const Home = () => {
               </Box>
             </Grid>
           </Grid>
-          <TableComponente onClick={handleDeleteRows} />
+          <TableComponente data={rows} onClick={handleDeleteRows} />
         </Container>
       </CustomContainer>
     </Box>
