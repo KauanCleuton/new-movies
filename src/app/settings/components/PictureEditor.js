@@ -4,6 +4,7 @@ import { Button, Slider, Box, IconButton, Dialog, DialogContent, DialogActions, 
 import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Image from 'next/image'
 
 const StyledBox = styled(Box)({
     display: 'flex',
@@ -91,7 +92,7 @@ const ProfilePictureEditor = () => {
                 <label htmlFor="icon-button-file">
                     <Input accept="image/*" id="icon-button-file" type="file" onChange={handleImageUpload} />
                     <BadgeIcon color="secondary" aria-label="upload picture" component="span">
-                        <PhotoCamera sx={{color: "#001928"}} />
+                        <PhotoCamera sx={{ color: "#001928" }} />
                     </BadgeIcon>
                 </label>
             </Badge>
@@ -120,7 +121,7 @@ const ProfilePictureEditor = () => {
             <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>
                 <DialogTitle>Imagem de Perfil</DialogTitle>
                 <DialogContent>
-                    <img src={image} alt="Perfil" style={{ width: '100%', height: 'auto' }} />
+                    <Image src={image} alt="Perfil" style={{ width: '100%', height: 'auto' }} />
                 </DialogContent>
             </Dialog>
         </StyledBox>

@@ -44,7 +44,7 @@ const withAuth = (WrappedComponent) => {
                 refreshAccessToken(refreshToken);
             }
 
-        }, []);
+        }, [refreshAccessToken, router]);
 
         return <WrappedComponent {...props} />;
     };
