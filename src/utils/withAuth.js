@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useCallback } from 'react';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import Auth from '@/service/auth.service';
 
 const verifyJWTExpiration = (token) => {

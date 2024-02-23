@@ -18,6 +18,13 @@ class Auth {
     refreshTokenService = async (payload) => customAxios.post("refresh-token", {
         refreshToken: payload
     });
+    logout(accessToken) {
+        return customAxios.get("/logout", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
 }
 
 

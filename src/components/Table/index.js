@@ -39,6 +39,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const TableComponente = ({ data, onClick }) => {
+    console.log(data)
     return (
         <TableContainer component={Paper} sx={{
             maxHeight: 520,
@@ -62,20 +63,20 @@ const TableComponente = ({ data, onClick }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row) => (
+                    {Array.isArray(data) && data.map((row) => (
                         <StyledTableRow
-                            key={row.posicao}
+                            key={row?.position}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <StyledTableCell component="th" align='center' scope="row">
-                                {row.posicao}
+                                {row?.position}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.titulo}</StyledTableCell>
-                            <StyledTableCell align="center">{row.genero}</StyledTableCell>
-                            <StyledTableCell align="center">{row.ano}</StyledTableCell>
-                            <StyledTableCell align="center">{row.resolucao}</StyledTableCell>
-                            <StyledTableCell align="center">{row.audio}</StyledTableCell>
-                            <StyledTableCell align="center">{row.assistido}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.title}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.gender}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.year}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.resolution}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.language}</StyledTableCell>
+                            <StyledTableCell align="center">{row?.attended}</StyledTableCell>
                             <StyledTableCell align="center" >
                                 <Box style={{ display: 'flex', gap: 2 }}>
                                     <button

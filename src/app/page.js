@@ -6,41 +6,14 @@ import CustomContainer from "@/components/CustomContainer";
 import { ButtonComponent } from "@/components/Button";
 import { AddCircleOutlineOutlined } from "@mui/icons-material";
 import withAuth from "@/utils/withAuth";
+import Movies from "@/service/movies.service";
+import { get } from "http";
 
 const Home = () => {
 
 
 
-  const [rows, setRows] = useState([
-    {
-      posicao: 1,
-      titulo: 'A Origem',
-      genero: 'Ação/Ficção Científica',
-      ano: '2010',
-      resolucao: '1080p',
-      audio: 'Inglês',
-      assistido: 'Sim'
-    },
-    {
-      posicao: 2,
-      titulo: 'Um Sonho de Liberdade',
-      genero: 'Drama',
-      ano: '1994',
-      resolucao: '720p',
-      audio: 'Inglês',
-      assistido: 'Sim'
-    },
-    {
-      posicao: 3,
-      titulo: 'O Poderoso Chefão',
-      genero: 'Drama/Crime',
-      ano: '1972',
-      resolucao: '4K',
-      audio: 'Italiano',
-      assistido: 'Sim'
-    },
-    // ... (restante da lista)
-  ]);
+
   const [selectType, setSelectType] = useState(null);
   const [valueFilter, setValueFilter] = useState("");
   const typesFilter = ['titulo', 'genero', 'ano', 'resolucao', 'audio'];
@@ -60,8 +33,26 @@ const Home = () => {
     const rowsDelete = rows.filter(item => item.posicao !== position)
     setRows(rowsDelete)
   }
+  const [rows, setRows] = useState([]);
 
+  const getData = async () => {
+    const movies = new Movies();
+    try {
+      const accessToken = sessionStorage.getItem("accessToken");
 
+      const response = await movies.getList(accessToken);
+      console.log(response.data.message)
+      setRows(response.data.message);
+
+    } catch (error) {
+      console.error('Erro ao obter filmes do usuário!', error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Box sx={{
@@ -119,7 +110,7 @@ const Home = () => {
               </Box>
             </Grid>
           </Grid>
-          <TableComponente onClick={handleDeleteRows} />
+          <TableComponente data={rows} onClick={handleDeleteRows} />
         </Container>
       </CustomContainer>
     </Box>
