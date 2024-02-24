@@ -32,7 +32,17 @@ class Movies {
             }
         })
     }
-
+    filterMovies(data, accessToken) {
+        return customAxios.post("/filter", {
+            option: data.option,
+            value: data.value
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
 
 
 }

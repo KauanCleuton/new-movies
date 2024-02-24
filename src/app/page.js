@@ -14,9 +14,11 @@ const Home = () => {
 
 
 
-  const [selectType, setSelectType] = useState(null);
-  const [valueFilter, setValueFilter] = useState("");
-  const typesFilter = ['titulo', 'genero', 'ano', 'resolucao', 'audio'];
+  const [filter, setFilter] = useState({
+    option: "",
+    value: ""
+  })
+  const typesFilter = ['title', 'gender', 'year', 'resolution', 'language'];
 
 
   const handleDeleteRows = async (id) => {
@@ -35,6 +37,26 @@ const Home = () => {
     }
   }
   const [rows, setRows] = useState([]);
+
+  const handleFilterData = async () => {
+    const movies = new Movies()
+    try {
+      const accessToken = sessionStorage.getItem("accessToken")
+      const filterMovies = await movies.filterMovies(filter, accessToken)
+      console.log(filterMovies.data.data)
+      setRows(filterMovies.data.data);
+      setFilter({
+        option: "",
+        value: ""
+      })
+      return filterMovies.data
+    } catch (error) {
+      console.error('Erro ao filtrar filmes do usuário!', error);
+      throw error;
+    }
+  }
+
+
 
   const getData = async () => {
     const movies = new Movies();
@@ -70,8 +92,8 @@ const Home = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField label="Filme"
                     fullWidth
-                    value={valueFilter}
-                    onChange={(e) => setValueFilter(e.target.value)}
+                    value={filter.value}
+                    onChange={(e) => setFilter({ ...filter, value: e.target.value })}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -80,8 +102,8 @@ const Home = () => {
                     id="combo-box-demo"
                     options={typesFilter}
                     fullWidth
-                    value={selectType}
-                    onChange={(e, value) => setSelectType(value)}
+                    value={filter.option}
+                    onChange={(e, value) => setFilter({ ...filter, option: value })}
                     getOptionLabel={(option) => option}
                     renderInput={(params) => <TextField {...params} label="Filme" />}
                   />
@@ -96,7 +118,7 @@ const Home = () => {
                 gap: 2,
                 justifyContent: "space-around"
               }}>
-                <ButtonComponent text={"Buscar"}  />
+                <ButtonComponent text={"Buscar"} handleBuscar={handleFilterData} />
 
                 <Button component={Link} href="/add-movie" variant="contained" sx={{
                   background: '#001928',

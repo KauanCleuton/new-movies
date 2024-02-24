@@ -37,7 +37,7 @@ class Auth {
         return customAxios.put("/edit-user", {
             name: data.name,
             email: data.email,
-            foto_url: data.url,
+            foto_url: data.foto_url,
             old_password: data.oldPassword,
             password: data.password
         }, {

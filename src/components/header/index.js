@@ -116,7 +116,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 0, padding: '0 40px', }}>
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleToggleButton} sx={{ p: 0 }}>
-                        <Avatar alt={user.length > 0 ? user[0].name : ''} />
+                        <Avatar alt={user.length > 0 ? user[0].name : ''} src={user.length > 0 ? user[0].foto_url : null} />
                         {user.length > 0 && (
                             <Typography variant="body2" sx={{ color: "#fff", marginLeft: 2, fontWeight: 'bold' }}>
                                 {user[0].name}
