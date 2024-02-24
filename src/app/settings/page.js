@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 import ProfilePictureEditor from './components/PictureEditor'
 import Button from '@mui/material/Button'
 import withAuth from '@/utils/withAuth'
+import Auth from '@/service/auth.service'
 
 
 const fontBodyH1 = {
@@ -16,6 +17,36 @@ const fontBodyH1 = {
 }
 
 const SettingsPage = () => {
+
+    const [edit, setEdit] = useState({
+        name: "",
+        email: "",
+        foto_url: "",
+        password: "",
+        oldPassword: ""
+    })
+    const handleUrl = (url) => {
+        setEdit({ ...edit, foto_url: url })
+    }
+
+    const handleChangeEdit = (event) => {
+        const { name, value } = event.target
+        setEdit({ ...edit, [name]: value })
+    }
+    const handleEditUser = async () => {
+        const auth = new Auth()
+        console.log(edit)
+        try {
+            const accessToken = sessionStorage.getItem("accessToken")
+            const user = await auth.editUser(edit, accessToken)
+
+            console.log(user.data.user)
+            return user.data
+        } catch (error) {
+            console.error('Erro ao editar usuário!')
+            throw error
+        }
+    }
     return (
         <Box sx={{
             width: '100vw',
@@ -36,26 +67,29 @@ const SettingsPage = () => {
                     <Grid
                         item
                         xs={12}
-
-
                     >
-                        <ProfilePictureEditor />
+                        <ProfilePictureEditor foto_url={handleUrl} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={3} justifyContent="center" alignItems="center">
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Nome" fullWidth />
+                                    <TextField color='info' label="Nome" name={"name"} value={edit.name} onChange={handleChangeEdit} fullWidth />
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Email" fullWidth />
+                                    <TextField color='info' label="Email" name="email" value={edit.email} onChange={handleChangeEdit} fullWidth />
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Senha" fullWidth />
+                                    <TextField color='info' label="Senha Nova" fullWidth name='password' value={edit.password} onChange={handleChangeEdit} />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
+                                    <TextField color='info' label="Nova Antiga" fullWidth name='oldPassword' value={edit.oldPassword} onChange={handleChangeEdit} />
                                 </Box>
                             </Grid>
                         </Grid>
@@ -65,7 +99,7 @@ const SettingsPage = () => {
                             width: '100%',
                             display: 'flex',
                             justifyContent: 'center',
-                            py: 5
+                            py: 2
                         }}>
                             <Button variant="contained" sx={{
                                 py: "8px",
@@ -76,7 +110,7 @@ const SettingsPage = () => {
                                 ":hover": {
                                     backgroundColor: "#001928"
                                 }
-                            }}>
+                            }} onClick={handleEditUser}>
                                 Alterar
                             </Button>
                         </Box>

@@ -6,62 +6,76 @@ import CustomContainer from "@/components/CustomContainer";
 import { ButtonComponent } from "@/components/Button";
 import { AddCircleOutlineOutlined } from "@mui/icons-material";
 import withAuth from "@/utils/withAuth";
+import Movies from "@/service/movies.service";
+import { get } from "http";
 
 const Home = () => {
 
 
 
-  const [rows, setRows] = useState([
-    {
-      posicao: 1,
-      titulo: 'A Origem',
-      genero: 'Ação/Ficção Científica',
-      ano: '2010',
-      resolucao: '1080p',
-      audio: 'Inglês',
-      assistido: 'Sim'
-    },
-    {
-      posicao: 2,
-      titulo: 'Um Sonho de Liberdade',
-      genero: 'Drama',
-      ano: '1994',
-      resolucao: '720p',
-      audio: 'Inglês',
-      assistido: 'Sim'
-    },
-    {
-      posicao: 3,
-      titulo: 'O Poderoso Chefão',
-      genero: 'Drama/Crime',
-      ano: '1972',
-      resolucao: '4K',
-      audio: 'Italiano',
-      assistido: 'Sim'
-    },
-    // ... (restante da lista)
-  ]);
-  const [selectType, setSelectType] = useState(null);
-  const [valueFilter, setValueFilter] = useState("");
-  const typesFilter = ['titulo', 'genero', 'ano', 'resolucao', 'audio'];
 
-  const handleFilterRows = () => {
-    const newRowsFilter = rows.filter(row => {
-      if (selectType && row[selectType]) {
-        return row[selectType].toString().toLowerCase().includes(valueFilter.toLowerCase());
-      }
-      return false;
-    });
-    console.log(newRowsFilter);
-    setRows(newRowsFilter);
-  };
+  const [filter, setFilter] = useState({
+    option: "",
+    value: ""
+  })
+  const typesFilter = ['title', 'gender', 'year', 'resolution', 'language'];
 
-  const handleDeleteRows = (position) => {
-    const rowsDelete = rows.filter(item => item.posicao !== position)
-    setRows(rowsDelete)
+
+  const handleDeleteRows = async (id) => {
+    try {
+      const accessToken = sessionStorage.getItem("accessToken");
+
+      const movies = new Movies();
+      const addMovieResponse = await movies.deleteMovies(id, accessToken);
+
+      console.log("addMovieResponse:", addMovieResponse);
+
+      return addMovieResponse.data
+    } catch (error) {
+      console.error("Erro ao adicionar filme", error);
+      throw error;
+    }
+  }
+  const [rows, setRows] = useState([]);
+
+  const handleFilterData = async () => {
+    const movies = new Movies()
+    try {
+      const accessToken = sessionStorage.getItem("accessToken")
+      const filterMovies = await movies.filterMovies(filter, accessToken)
+      console.log(filterMovies.data.data)
+      setRows(filterMovies.data.data);
+      setFilter({
+        option: "",
+        value: ""
+      })
+      return filterMovies.data
+    } catch (error) {
+      console.error('Erro ao filtrar filmes do usuário!', error);
+      throw error;
+    }
   }
 
 
+
+  const getData = async () => {
+    const movies = new Movies();
+    try {
+      const accessToken = sessionStorage.getItem("accessToken");
+
+      const response = await movies.getList(accessToken);
+      console.log(response.data.message)
+      setRows(response.data.message);
+
+    } catch (error) {
+      console.error('Erro ao obter filmes do usuário!', error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Box sx={{
@@ -78,8 +92,8 @@ const Home = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField label="Filme"
                     fullWidth
-                    value={valueFilter}
-                    onChange={(e) => setValueFilter(e.target.value)}
+                    value={filter.value}
+                    onChange={(e) => setFilter({ ...filter, value: e.target.value })}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -88,8 +102,8 @@ const Home = () => {
                     id="combo-box-demo"
                     options={typesFilter}
                     fullWidth
-                    value={selectType}
-                    onChange={(e, value) => setSelectType(value)}
+                    value={filter.option}
+                    onChange={(e, value) => setFilter({ ...filter, option: value })}
                     getOptionLabel={(option) => option}
                     renderInput={(params) => <TextField {...params} label="Filme" />}
                   />
@@ -104,7 +118,7 @@ const Home = () => {
                 gap: 2,
                 justifyContent: "space-around"
               }}>
-                <ButtonComponent text={"Buscar"} handleBuscar={handleFilterRows} />
+                <ButtonComponent text={"Buscar"} handleBuscar={handleFilterData} />
 
                 <Button component={Link} href="/add-movie" variant="contained" sx={{
                   background: '#001928',

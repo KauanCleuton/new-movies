@@ -4,11 +4,17 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import { Paper, Box, Typography, useTheme, useMediaQuery, Menu, MenuItem } from '@mui/material'
+import { Paper, Box, Typography, useTheme, useMediaQuery, Menu, MenuItem, ListItemIcon } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Auth from '@/service/auth.service';
+
+
+
 const fontParams = {
     fontSize: { lg: '3.5rem', md: '2.3rem', sm: '1.9rem', xs: '1.4rem' },
     lineHeight: { lg: '3.5rem', md: '2.7rem', sm: '2rem', xs: '2.4rem' },
@@ -19,6 +25,7 @@ const fontBodyParams = {
 };
 const Header = () => {
     const theme = useTheme()
+
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const [openSideBar, setOpenSideBar] = useState(false)
     const handleToggleButton = () => {
@@ -27,6 +34,51 @@ const Header = () => {
     const handleClose = () => {
         setOpenSideBar(!openSideBar)
     }
+
+    const logoutUser = async () => {
+        const auth = new Auth();
+
+        try {
+            const accessToken = sessionStorage.getItem("accessToken");
+            const logout = await auth.logout(accessToken);
+
+            sessionStorage.removeItem("accessToken");
+            sessionStorage.removeItem("refreshToken");
+
+            console.log(logout.data)
+            window.location.reload()
+        } catch (error) {
+            console.error("Erro ao fazer logout do usuário:", error);
+            throw error;
+        }
+    };
+    const [user, setUser] = useState([]);
+
+    const getUser = async () => {
+        const auth = new Auth();
+        try {
+            const accessToken = sessionStorage.getItem("accessToken");
+            const users = await auth.getUser(accessToken);
+
+            console.log(users.data.users[0].id);
+            setUser(users.data.users);
+
+            return users.data;
+        } catch (error) {
+            console.error("Erro ao fazer dados do usuário:", error);
+            throw error;
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userData = await getUser();
+            console.log(userData);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <AppBar component={Paper} style={{
             width: '100%',
@@ -64,13 +116,18 @@ const Header = () => {
             <Box sx={{ flexGrow: 0, padding: '0 40px', }}>
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleToggleButton} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" />
+                        <Avatar alt={user.length > 0 ? user[0].name : ''} src={user.length > 0 ? user[0].foto_url : null} />
+                        {user.length > 0 && (
+                            <Typography variant="body2" sx={{ color: "#fff", marginLeft: 2, fontWeight: 'bold' }}>
+                                {user[0].name}
+                            </Typography>
+                        )}
                     </IconButton>
                 </Tooltip>
+
                 <Menu
                     sx={{ mt: '65px' }}
                     id="menu-appbar"
-
                     anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'right',
@@ -86,11 +143,22 @@ const Header = () => {
 
                     <MenuItem onClick={handleClose}>
                         <Link href={"/settings"}>
-                            <Typography textAlign="center">Setting</Typography>
+                            <ListItemIcon>
+                                <SettingsIcon />
+                            </ListItemIcon>
+                            <Typography textAlign="center">Settings</Typography>
                         </Link>
                     </MenuItem>
 
+                    <MenuItem onClick={logoutUser}>
+                        <ListItemIcon sx={{ color: 'red' }}>
+                            <ExitToAppIcon />
+                        </ListItemIcon>
+                        <Typography sx={{ color: 'red' }}>Sair</Typography>
+                    </MenuItem>
+
                 </Menu>
+
             </Box>
 
         </AppBar>
