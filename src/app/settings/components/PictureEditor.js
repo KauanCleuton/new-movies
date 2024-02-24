@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { Button, Slider, Box, IconButton, Dialog, DialogContent, DialogActions, Avatar, DialogTitle } from '@mui/material';
 import { styled } from '@mui/system';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Image from 'next/image'
+import Auth from '@/service/auth.service';
 
 const StyledBox = styled(Box)({
     display: 'flex',
@@ -47,7 +48,7 @@ const BadgeIcon = styled(IconButton)({
     right: '0px'
 });
 
-const ProfilePictureEditor = () => {
+const ProfilePictureEditor = ({ foto_url }) => {
     const [image, setImage] = useState(null);
     const [scale, setScale] = useState(1);
     const [editor, setEditor] = useState(null);
@@ -71,6 +72,7 @@ const ProfilePictureEditor = () => {
         if (editor) {
             const canvas = editor.getImageScaledToCanvas();
             process.env.NODE_ENV !== 'production' && console.log(canvas.toDataURL());
+            foto_url(canvas.toDataURL())
             setOpen(false);
         }
     };
@@ -85,10 +87,37 @@ const ProfilePictureEditor = () => {
     const handleCloseImageDialog = () => {
         setOpenImageDialog(false);
     };
+
+    const [user, setUser] = useState([]);
+
+    const getUser = async () => {
+        const auth = new Auth();
+        try {
+            const accessToken = sessionStorage.getItem("accessToken");
+            const users = await auth.getUser(accessToken);
+
+            console.log(users.data.users[0].id, '20066666666');
+            setUser(users.data.users);
+            return users.data;
+        } catch (error) {
+            console.error("Erro ao fazer dados do usuário:", error);
+            throw error;
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userData = await getUser();
+            console.log(userData);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <StyledBox>
             <Badge>
-                {image ? <StyledAvatar src={image} onClick={handleOpenImageDialog} /> : <StyledAccountCircle sx={{ color: '#D3D3D3' }} />}
+                {user.length > 0 ? <StyledAvatar src={user.length > 0 ? user[0].foto_url : image} onClick={handleOpenImageDialog} /> : <StyledAccountCircle sx={{ color: '#D3D3D3' }} />}
                 <label htmlFor="icon-button-file">
                     <Input accept="image/*" id="icon-button-file" type="file" onChange={handleImageUpload} />
                     <BadgeIcon color="secondary" aria-label="upload picture" component="span">
@@ -101,7 +130,7 @@ const ProfilePictureEditor = () => {
                     <ImageEditor>
                         <AvatarEditor
                             ref={setEditorRef}
-                            image={image}
+                            image={user.length > 0 ? user[0].foto_url : image}
                             width={200}
                             height={200}
                             border={50}
@@ -121,9 +150,10 @@ const ProfilePictureEditor = () => {
             <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>
                 <DialogTitle>Imagem de Perfil</DialogTitle>
                 <DialogContent>
-                    <Image src={image} alt="Perfil" style={{ width: '100%', height: 'auto' }} />
+                    <Image src={user && user.length > 0 ? user[0].foto_url : image} alt="Perfil" width={400} height={400} />
                 </DialogContent>
             </Dialog>
+
         </StyledBox>
     );
 };
