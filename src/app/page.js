@@ -18,20 +18,21 @@ const Home = () => {
   const [valueFilter, setValueFilter] = useState("");
   const typesFilter = ['titulo', 'genero', 'ano', 'resolucao', 'audio'];
 
-  const handleFilterRows = () => {
-    const newRowsFilter = rows.filter(row => {
-      if (selectType && row[selectType]) {
-        return row[selectType].toString().toLowerCase().includes(valueFilter.toLowerCase());
-      }
-      return false;
-    });
-    console.log(newRowsFilter);
-    setRows(newRowsFilter);
-  };
 
-  const handleDeleteRows = (position) => {
-    const rowsDelete = rows.filter(item => item.posicao !== position)
-    setRows(rowsDelete)
+  const handleDeleteRows = async (id) => {
+    try {
+      const accessToken = sessionStorage.getItem("accessToken");
+
+      const movies = new Movies();
+      const addMovieResponse = await movies.deleteMovies(id, accessToken);
+
+      console.log("addMovieResponse:", addMovieResponse);
+
+      return addMovieResponse.data
+    } catch (error) {
+      console.error("Erro ao adicionar filme", error);
+      throw error;
+    }
   }
   const [rows, setRows] = useState([]);
 
@@ -95,7 +96,7 @@ const Home = () => {
                 gap: 2,
                 justifyContent: "space-around"
               }}>
-                <ButtonComponent text={"Buscar"} handleBuscar={handleFilterRows} />
+                <ButtonComponent text={"Buscar"}  />
 
                 <Button component={Link} href="/add-movie" variant="contained" sx={{
                   background: '#001928',

@@ -65,7 +65,7 @@ const TableComponente = ({ data, onClick }) => {
                 <TableBody>
                     {Array.isArray(data) && data.map((row) => (
                         <StyledTableRow
-                            key={row?.position}
+                            key={row?.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <StyledTableCell component="th" align='center' scope="row">
@@ -87,7 +87,7 @@ const TableComponente = ({ data, onClick }) => {
                                             display: 'flex',
                                             alignItems: 'center',
                                         }}
-                                        onClick={() => onClick(row.posicao)}
+                                        onClick={() => onClick(row?.id)}
                                     >
                                         <HighlightOffOutlined sx={{ fill: '#fff' }} />
                                     </button>

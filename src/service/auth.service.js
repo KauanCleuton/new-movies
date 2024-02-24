@@ -25,6 +25,27 @@ class Auth {
             }
         })
     }
+    getUser(accessToken) {
+        return customAxios.get("/users", {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
+    editUser(data, accessToken) {
+        return customAxios.put("/edit-user", {
+            name: data.name,
+            email: data.email,
+            foto_url: data.url,
+            old_password: data.oldPassword,
+            password: data.password
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+    }
 }
 
 
