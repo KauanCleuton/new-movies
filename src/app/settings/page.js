@@ -41,6 +41,7 @@ const SettingsPage = () => {
             const user = await auth.editUser(edit, accessToken)
 
             console.log(user.data.user)
+            window.location.reload()
             return user.data
         } catch (error) {
             console.error('Erro ao editar usuário!')
