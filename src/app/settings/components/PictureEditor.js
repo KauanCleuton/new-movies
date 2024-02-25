@@ -19,7 +19,8 @@ const ImageEditor = styled(Box)({
 
 const StyledSlider = styled(Slider)({
     width: '300px',
-    margin: '20px'
+    margin: '20px',
+    objectFit: "cover"
 });
 
 const Input = styled('input')({
@@ -34,12 +35,14 @@ const Badge = styled('div')({
 const StyledAvatar = styled(Avatar)({
     width: '300px',
     height: '300px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    objectFit: "cover"
 });
 
 const StyledAccountCircle = styled(AccountCircle)({
     width: '300px',
-    height: '300px'
+    height: '300px',
+    objectFit: "cover"
 });
 
 const BadgeIcon = styled(IconButton)({
@@ -98,6 +101,7 @@ const ProfilePictureEditor = ({ foto_url }) => {
 
             console.log(users.data.users[0].id, '20066666666');
             setUser(users.data.users);
+            setImage(users.data.users[0].foto_url)
             return users.data;
         } catch (error) {
             console.error("Erro ao fazer dados do usuário:", error);
@@ -117,7 +121,7 @@ const ProfilePictureEditor = ({ foto_url }) => {
     return (
         <StyledBox>
             <Badge>
-                {user.length > 0 ? <StyledAvatar src={user.length > 0 ? user[0].foto_url : image} onClick={handleOpenImageDialog} /> : <StyledAccountCircle sx={{ color: '#D3D3D3' }} />}
+                {image ? <StyledAvatar src={image} onClick={handleOpenImageDialog} /> : <StyledAccountCircle sx={{ color: '#D3D3D3' }} />}
                 <label htmlFor="icon-button-file">
                     <Input accept="image/*" id="icon-button-file" type="file" onChange={handleImageUpload} />
                     <BadgeIcon color="secondary" aria-label="upload picture" component="span">
@@ -130,13 +134,14 @@ const ProfilePictureEditor = ({ foto_url }) => {
                     <ImageEditor>
                         <AvatarEditor
                             ref={setEditorRef}
-                            image={user.length > 0 ? user[0].foto_url : image}
+                            image={image}
                             width={200}
                             height={200}
                             border={50}
                             scale={scale}
                             borderRadius={100}
                             rotate={0}
+
                         />
                         <StyledSlider min={1} max={3} step={0.01} value={scale} onChange={handleScaleChange} />
                     </ImageEditor>
@@ -150,7 +155,9 @@ const ProfilePictureEditor = ({ foto_url }) => {
             <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>
                 <DialogTitle>Imagem de Perfil</DialogTitle>
                 <DialogContent>
-                    <Image src={user && user.length > 0 ? user[0].foto_url : image} alt="Perfil" width={400} height={400} />
+                    <Image src={image} alt="Perfil" width={400} height={400} style={{
+                        objectFit: "cover"
+                    }} />
                 </DialogContent>
             </Dialog>
 
