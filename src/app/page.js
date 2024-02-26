@@ -23,6 +23,7 @@ const Home = () => {
 
   const handleDeleteRows = async (id) => {
     try {
+      setLoading(true)
       const accessToken = sessionStorage.getItem("accessToken");
 
       const movies = new Movies();
@@ -35,16 +36,21 @@ const Home = () => {
       console.error("Erro ao adicionar filme", error);
       throw error;
     }
+    finally {
+      setLoading(false)
+    }
   }
   const [rows, setRows] = useState([]);
 
   const handleFilterData = async () => {
     const movies = new Movies()
     try {
+      setLoading(true)
       const accessToken = sessionStorage.getItem("accessToken")
       const filterMovies = await movies.filterMovies(filter, accessToken)
       console.log(filterMovies.data.data)
       setRows(filterMovies.data.data);
+      
       setFilter({
         option: "",
         value: ""
@@ -53,6 +59,9 @@ const Home = () => {
     } catch (error) {
       console.error('Erro ao filtrar filmes do usuário!', error);
       throw error;
+    }
+    finally {
+      setLoading(false)
     }
   }
 
