@@ -12,15 +12,11 @@ import Loading from "@/components/loading";
 const Home = () => {
 
   const [loading, setLoading] = useState(false)
-
-
   const [filter, setFilter] = useState({
     option: "",
     value: ""
   })
   const typesFilter = ['title', 'gender', 'year', 'resolution', 'language'];
-
-
   const handleDeleteRows = async (id) => {
     try {
       setLoading(true)
