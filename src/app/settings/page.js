@@ -9,6 +9,7 @@ import ProfilePictureEditor from './components/PictureEditor'
 import Button from '@mui/material/Button'
 import withAuth from '@/utils/withAuth'
 import Auth from '@/service/auth.service'
+import Loading from '@/components/loading'
 
 
 const fontBodyH1 = {
@@ -17,7 +18,7 @@ const fontBodyH1 = {
 }
 
 const SettingsPage = () => {
-
+    const [loading, setLoading] = useState(false)
     const [edit, setEdit] = useState({
         name: "",
         email: "",
@@ -37,90 +38,95 @@ const SettingsPage = () => {
         const auth = new Auth()
         console.log(edit)
         try {
+            setLoading(true)
             const accessToken = sessionStorage.getItem("accessToken")
             const user = await auth.editUser(edit, accessToken)
 
             console.log(user.data.user)
-            window.location.reload()
+            
             return user.data
         } catch (error) {
             console.error('Erro ao editar usuário!')
             throw error
         }
+        finally {
+            setLoading(false)
+        }
     }
     return (
-        <Box sx={{
-            width: '100vw',
-            height: "100vh",
-            px: 2,
-            display: 'flex',
-            py: { lg: 15, md: 13, sm: 12, xs: 15 },
-            marginBottom: 15
-        }}>
-            <CustomContainer >
-                <Grid container spacing={2} justifyContent="center" alignItems="center">
-                    <Grid item xs={12}>
-                        <Typography sx={{
-                            ...fontBodyH1,
-                            textAlign: 'center'
-                        }}>Dados Cadastrais</Typography>
-                    </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                    >
-                        <ProfilePictureEditor foto_url={handleUrl} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container spacing={3} justifyContent="center" alignItems="center">
+        <>
+            {!loading ? (
+                <Box sx={{
+                    width: '100vw',
+                    height: "100vh",
+                    px: 2,
+                    display: 'flex',
+                    py: { lg: 15, md: 13, sm: 12, xs: 15 },
+                    marginBottom: 15
+                }}>
+                    <CustomContainer>
+                        <Grid container spacing={2} justifyContent="center" alignItems="center">
                             <Grid item xs={12}>
-                                <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Nome" name={"name"} value={edit.name} onChange={handleChangeEdit} fullWidth />
-                                </Box>
+                                <Typography sx={{
+                                    ...fontBodyH1,
+                                    textAlign: 'center'
+                                }}>Dados Cadastrais</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Email" name="email" value={edit.email} onChange={handleChangeEdit} fullWidth />
-                                </Box>
+                                <ProfilePictureEditor foto_url={handleUrl} />
                             </Grid>
                             <Grid item xs={12}>
-                                <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Senha Nova" fullWidth name='password' value={edit.password} onChange={handleChangeEdit} />
-                                </Box>
+                                <Grid container spacing={3} justifyContent="center" alignItems="center">
+                                    <Grid item xs={12}>
+                                        <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
+                                            <TextField color='info' label="Nome" name={"name"} value={edit.name} onChange={handleChangeEdit} fullWidth />
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
+                                            <TextField color='info' label="Email" name="email" value={edit.email} onChange={handleChangeEdit} fullWidth />
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
+                                            <TextField color='info' label="Senha Nova" fullWidth name='password' value={edit.password} onChange={handleChangeEdit} />
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
+                                            <TextField color='info' label="Nova Antiga" fullWidth name='oldPassword' value={edit.oldPassword} onChange={handleChangeEdit} />
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={12}>
-                                <Box sx={{ maxWidth: 540, width: '100%', margin: 'auto' }}>
-                                    <TextField color='info' label="Nova Antiga" fullWidth name='oldPassword' value={edit.oldPassword} onChange={handleChangeEdit} />
+                                <Box sx={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    py: 2
+                                }}>
+                                    <Button variant="contained" sx={{
+                                        py: "8px",
+                                        textTransform: "none",
+                                        width: "20%",
+                                        fontSize: { lg: '1.1rem', md: "1rem", sm: ".99rem", xs: ".899rem" },
+                                        backgroundColor: "#001928",
+                                        ":hover": {
+                                            backgroundColor: "#001928"
+                                        }
+                                    }} onClick={handleEditUser}>
+                                        Alterar
+                                    </Button>
                                 </Box>
                             </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Box sx={{
-                            width: '100%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            py: 2
-                        }}>
-                            <Button variant="contained" sx={{
-                                py: "8px",
-                                textTransform: "none",
-                                width: "20%",
-                                fontSize: { lg: '1.1rem', md: "1rem", sm: ".99rem", xs: ".899rem" },
-                                backgroundColor: "#001928",
-                                ":hover": {
-                                    backgroundColor: "#001928"
-                                }
-                            }} onClick={handleEditUser}>
-                                Alterar
-                            </Button>
-                        </Box>
-                    </Grid>
-                </Grid>
-
-            </CustomContainer>
-
-        </Box>
+                    </CustomContainer>
+                </Box>
+            ) : (
+                <Loading />
+            )}
+        </>
     )
 }
 export default withAuth(SettingsPage)

@@ -40,6 +40,8 @@ const withAuth = (WrappedComponent) => {
       const isRefreshTokenExpired = !verifyJWTExpiration(refreshToken);
 
       if (isAccessTokenExpired && isRefreshTokenExpired) {
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('refreshToken');
         router.push('/login');
       } else if (isAccessTokenExpired) {
         refreshAccessToken(refreshToken);
